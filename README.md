@@ -1,4 +1,4 @@
-## Проектная работа № 12 Яндекс.Практикум
+## Проектная работа № 13 Яндекс.Практикум
 
 ### Содержание
 1. [Структура проекта](#structure)
@@ -12,19 +12,16 @@
 
 <a name='#structure'></a>
 ### Структура проекта
-    ./public – папка с файлами проекта
-    ./public/index.html
-    ./public/images – папка с изображениями
-    ./public/vendor – папка с файлами шрифтов
-    ./data - папка, содержащая файлы БД пользователей и карточек
     ./routes - папка, содержащая роуты для обработки запросов пользователей
+    ./controllers - папка с контроллерами
+    ./models - папка, содержащая схемы mongodb
 
 
 <a name='#install'></a>
 ### Этапы установки
     Клонировать репозиторий
 
-    git clone https://github.com/Tatiana81/project12.git
+    git clone https://github.com/Tatiana81/YP-project13.git
 
     Установить пакеты, указанные в разделе Используемые модули, с помощью npm install
 
@@ -39,7 +36,7 @@
 
     package.json – общие настройки npm, включая скрипты запуска, точку входа, установленные модули
     
-    .eslintrc.js - параметры настройки ESLint
+    .eslintrc - параметры настройки ESLint
     
     .editorconfig - парметры настройки редактора
 
@@ -52,15 +49,14 @@
      eslint: 6.8.0,
      eslint-config-airbnb-base: 14.1.0,
      eslint-plugin-import: 2.20.2,
-     express: 4.17.1,
-     html-webpack-plugin: 3.2.0,
+     express: 4.17.1
      nodemon: 2.0.2
 
 <a name='version'></a>
-### Версия: 1.0.1
+### Версия: 1.0.0
 
 <a name='link'></a>
-### Ссылка на адрес страницы: https://tatiana81.github.io/project12/
+### Ссылка на адрес страницы: https://tatiana81.github.io/YP-project13/
 
 <a name='author'></a>
 ### Автор: Суроева Татьяна
