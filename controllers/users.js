@@ -28,6 +28,15 @@ const findAllUsers = (req, res) => {
 
 const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
+  if (validator.isAlpha(name)) {
+    res.status(400).send({ message: 'Некорректное имя' }); return;
+  }
+  if (validator.isAlpha(about)) {
+    res.status(400).send({ message: 'Некорректное описание' }); return;
+  }
+  if (validator.isURL(avatar)) {
+    res.status(400).send({ message: 'Некорректная ссылка на аватар' }); return;
+  }
   User.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
     .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
