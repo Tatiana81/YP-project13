@@ -1,17 +1,23 @@
+const validator = require('validator');
 const User = require('../models/user');
 
 const findUser = (req, res) => {
-  console.log('Im here');
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (user) res.status(200).send({ data: user });
-      else {
-        res.status(404).send({
-          message: 'Нет пользователя с таким id',
-        });
-      }
-    })
-    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+  if (validator.isMongoId(req.params.userId)) {
+    User.findById(req.params.userId)
+      .then((user) => {
+        if (user) res.status(200).send({ data: user });
+        else {
+          res.status(404).send({
+            message: 'Нет пользователя с таким id',
+          });
+        }
+      })
+      .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+  } else {
+    res.status(404).send({
+      message: 'Нет пользователя с таким id',
+    });
+  }
 };
 
 const findAllUsers = (req, res) => {
