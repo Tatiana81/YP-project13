@@ -43,6 +43,15 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
+  if (validator.isAlpha(req.body.name)) {
+    res.status(400).send({ message: 'Некорректное имя' }); return;
+  }
+  if (validator.isAlpha(req.body.about)) {
+    res.status(400).send({ message: 'Некорректное описание' }); return;
+  }
+  if (validator.isURL(req.body.avatar)) {
+    res.status(400).send({ message: 'Некорректная ссылка на аватар' }); return;
+  }
   User.findByIdAndUpdate(req.user._id, {
     name: req.body.name, about: req.body.about, avatar: req.body.avatar,
   })
@@ -51,6 +60,9 @@ const updateUser = (req, res) => {
 };
 
 const updateAvatar = (req, res) => {
+  if (validator.isURL(req.body.avatar)) {
+    res.status(400).send({ message: 'Некорректная ссылка на аватар' }); return;
+  }
   User.findByIdAndUpdate(req.user._id, {
     avatar: req.body.avatar,
   })
