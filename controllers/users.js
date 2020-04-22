@@ -28,7 +28,6 @@ const findAllUsers = (req, res) => {
 
 const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
-  console.log(validator.isURL(avatar));
   User.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
     .catch((error) => {
