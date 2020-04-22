@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -6,10 +7,18 @@ const cardSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 30,
+    validate: {
+      validator: (value) => validator.isAlpha(value),
+      message: 'Некорректное имя карточки',
+    },
   },
   link: {
     type: String,
     required: true,
+    validate: {
+      validator: (value) => validator.isUrl(value),
+      message: 'Невалидная ссылка',
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
