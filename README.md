@@ -50,7 +50,8 @@
      eslint-config-airbnb-base: 14.1.0,
      eslint-plugin-import: 2.20.2,
      express: 4.17.1
-     nodemon: 2.0.2
+     nodemon: 2.0.2,
+     validator: 13.0.0
 
 <a name='version'></a>
 ### Версия: 1.0.0

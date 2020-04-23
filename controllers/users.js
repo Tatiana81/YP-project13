@@ -1,9 +1,23 @@
+const validator = require('validator');
 const User = require('../models/user');
 
 const findUser = (req, res) => {
-  User.findById(req.params.userId)
-    .then((user) => res.send({ data: user }))
-    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+  if (validator.isMongoId(req.params.userId)) {
+    User.findById(req.params.userId)
+      .then((user) => {
+        if (user) res.status(200).send({ data: user });
+        else {
+          res.status(404).send({
+            message: 'Нет пользователя с таким id',
+          });
+        }
+      })
+      .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+  } else {
+    res.status(404).send({
+      message: 'Нет пользователя с таким id',
+    });
+  }
 };
 
 const findAllUsers = (req, res) => {
@@ -16,7 +30,10 @@ const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar })
     .then((user) => res.send({ data: user }))
-    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+    .catch((error) => {
+      if (error.name === 'ValidationError') res.status(400).send({ message: `${error}` });
+      else res.status(500).send({ message: `Произошла ошибка ${error}` });
+    });
 };
 
 const updateUser = (req, res) => {
@@ -24,7 +41,10 @@ const updateUser = (req, res) => {
     name: req.body.name, about: req.body.about, avatar: req.body.avatar,
   })
     .then((user) => (res.send({ data: user })))
-    .catch((err) => { res.status(500).send({ message: `Произошла ошибка ${err}` }); });
+    .catch((error) => {
+      if (error.name === 'ValidationError') res.status(400).send({ message: `${error}` });
+      else res.status(500).send({ message: `Произошла ошибка ${error}` });
+    });
 };
 
 const updateAvatar = (req, res) => {
@@ -32,7 +52,10 @@ const updateAvatar = (req, res) => {
     avatar: req.body.avatar,
   })
     .then((user) => (res.send({ data: user })))
-    .catch((err) => { res.status(500).send({ message: `Произошла ошибка ${err}` }); });
+    .catch((error) => {
+      if (error.name === 'ValidationError') res.status(400).send({ message: `${error}` });
+      else res.status(500).send({ message: `Произошла ошибка ${error}` });
+    });
 };
 
 module.exports = {
